@@ -26,6 +26,7 @@ def alibaba_scrape(url: str):
     tickets.append(
         {
             "site": url,
+            "time": time.ctime(),
         }
     )
     # "//section[@class ='min-w-0']//div[contains(@class, 'a-card')]" => every single card in  site
@@ -37,7 +38,7 @@ def alibaba_scrape(url: str):
         "xpath",
         "//section[@class ='min-w-0']//div[contains(@class, 'a-card')][.//button]//span[contains(@class,'text-5')][text()[contains(. ,':')]]",
     )
-    print(when)
+    
     for ticket in range(available.__len__()):
         s_time = when[ticket + ticket].text
         tickets.append(
