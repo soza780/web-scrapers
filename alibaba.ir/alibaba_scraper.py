@@ -15,7 +15,7 @@ def alibaba_scrape(url: str):
     Scrapes the Alibaba website for tickets and prices.
     """
     options = Options()
-    options.add_experimental_option("detach", True)
+    # options.add_experimental_option("detach", True)
     driver = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()), options=options
     )
@@ -60,7 +60,4 @@ if __name__ == "__main__":
     WHEN = input("when (ex: 1402-11-05)")
     base_url = f"https://www.alibaba.ir/{WHAT}/{FROM}-{TO}?adult={ADULT_NUMBER}&child=0&infant=0&ticketType=Family&isExclusive=false&departing={WHEN}"
     # base_url = "https://www.alibaba.ir/train/THR-TBZ?adult=1&child=0&infant=0&ticketType=Family&isExclusive=false&departing=1402-11-05"
-    try:
-        alibaba_scrape(base_url)
-    except:
-        raise Exception("something went wrong")
+    alibaba_scrape(base_url)
