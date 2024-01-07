@@ -1,6 +1,6 @@
 # SPA scraper with python and selenium
 
-![Selenium image](selenium.png){width:20%}
+![Selenium image](selenium.png)
 
 ## Disclaimer
 
@@ -25,3 +25,5 @@ for scraping
 - digikala.com
 - alibaba.ir
 - flytodayir.com
+- safarmarket.com
+- takhfifan.com
