@@ -38,7 +38,7 @@ def alibaba_scrape(url: str):
         "xpath",
         "//section[@class ='min-w-0']//div[contains(@class, 'a-card')][.//button]//span[contains(@class,'text-5')][text()[contains(. ,':')]]",
     )
-    
+
     for ticket in range(available.__len__()):
         s_time = when[ticket + ticket].text
         tickets.append(
@@ -47,7 +47,7 @@ def alibaba_scrape(url: str):
                 "s_time": s_time,
             }
         )
-    with open("tickets.json", "w") as f:
+    with open("alibabatickets.json", "w") as f:
         json.dump(tickets, f, indent=4)
     return tickets
 

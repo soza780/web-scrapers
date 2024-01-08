@@ -1,0 +1,36 @@
+[
+    {
+        "site": "https://flightio.com/flight/search/2/THR-SYZ%40/2024-02-05/1-0-0-1",
+        "time": "Mon Jan  8 12:27:23 2024"
+    },
+    {
+        "ticket": 0,
+        "s_time": "06:45",
+        "price": "1,325,500 \u062a"
+    },
+    {
+        "ticket": 1,
+        "s_time": "12:05",
+        "price": "1,325,500 \u062a"
+    },
+    {
+        "ticket": 2,
+        "s_time": "11:55",
+        "price": "1,326,100 \u062a"
+    },
+    {
+        "ticket": 3,
+        "s_time": "08:00",
+        "price": "1,550,000 \u062a"
+    },
+    {
+        "ticket": 4,
+        "s_time": "19:30",
+        "price": "1,996,400 \u062a"
+    },
+    {
+        "ticket": 5,
+        "s_time": "06:45",
+        "price": "2,115,500 \u062a"
+    }
+]
