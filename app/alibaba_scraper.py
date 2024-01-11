@@ -3,15 +3,10 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-import json
-
-"""
-    base url : https://www.alibaba.ir/train/THR-TBZ?adult=1&child=0&infant=0&ticketType=Family&isExclusive=false&departing=1402-11-05
-"""
+import jdatetime
 
 
-def alibaba_scrape(what: str,s_from: str, to: str, year: int,
-                    month: int, day: int,day_of_month: int):
+def alibaba_scrape(what: str,s_from: str, to: str,now):
   
     options = Options()
     # options.add_experimental_option("detach", True)
@@ -20,15 +15,16 @@ def alibaba_scrape(what: str,s_from: str, to: str, year: int,
     )
     s_from = s_from.upper()
     to = to.upper()
+    s_date = jdatetime.date.fromgregorian(year = now.year, month = now.month, day = now.day)
+    tickets = []
     for i in range(7):
-        url = f"https://www.alibaba.ir/{what}/{s_from}-{to}?adult=1&child=0&infant=0&ticketType=Family&isExclusive=false&departing={year}-{month}-{day_of_month + i}"
-        if day_of_month + i > 31:
-            url = f"https://www.alibaba.ir/{what}/{s_from}-{to}?adult=1&child=0&infant=0&ticketType=Family&isExclusive=false&departing={year}-{month + 1}-{i}"
+        url = f"https://www.alibaba.ir/{what}s/{s_from}-{to}?adult=1&child=0&infant=0&departing={s_date.year}-{s_date.month}-{s_date.day + i}"
+        if now.day + i > 31:
+            url = f"https://www.alibaba.ir/{what}s/{s_from}-{to}?adult=1&child=0&infant=0&departing={s_date.year}-{s_date.month + 1}-{i}"
         try:
             driver.get(url)
             driver.maximize_window()
             time.sleep(10)
-            tickets = []
             available = driver.find_elements(
                 "xpath",
                 "//section[@class ='min-w-0']//div[contains(@class, 'a-card')][.//button]",
@@ -55,4 +51,5 @@ def alibaba_scrape(what: str,s_from: str, to: str, year: int,
             
         except:
             continue
-        return tickets
+    driver.close()
+    return tickets

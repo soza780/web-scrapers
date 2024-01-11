@@ -3,11 +3,11 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-import json
+import datetime
 
 
-def flytoday_scrape(what: str,s_from: str, to: str, year: int,
-                    month: int, day: int,day_of_month: int):
+
+def flytoday_scrape(what: str,s_from: str, to: str,now):
     """
     Scrapes the flytoday website for tickets and prices.
     """
@@ -16,17 +16,16 @@ def flytoday_scrape(what: str,s_from: str, to: str, year: int,
     driver = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()), options=options
     )
+    tickets = []
     s_from = s_from.lower()
     to = to.lower()
     for i in range(7):
-        url = f"https://www.flytoday.ir/{what}/search?departure={s_from},1&arrival={to},1&departureDate={year}-{month}-{day_of_month + i}&adt=1&chd=0&inf=0&cabin=1&isDomestic=true"
-        if day_of_month + i >31:
-            url = f"https://www.flytoday.ir/{what}/search?departure={s_from},1&arrival={to},1&departureDate={year}-{month + 1}-{i}&adt=1&chd=0&inf=0&cabin=1&isDomestic=true"
+        url = f"https://www.flytoday.ir/{what}/search?departure={s_from},1&arrival={to},1&departureDate={(now + datetime.timedelta(days=i)).__str__()}&adt=1&chd=0&inf=0&cabin=1&isDomestic=true"
+    
         try:
             driver.get(url)
             driver.maximize_window()
             time.sleep(10)
-            tickets = []
             tickets.append(
                 {
                     "site": url,
@@ -55,7 +54,8 @@ def flytoday_scrape(what: str,s_from: str, to: str, year: int,
                         "price": price[ticket].text
                     }
                 )
-            return tickets
         except:
             continue
+    driver.close()
+    return tickets
 

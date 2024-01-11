@@ -18,12 +18,28 @@ for scraping
 
 ## list of scrapers
 
-- sabzlearn.ir 
-
-- torob.ir
-    - apple and samsun phones
-- digikala.com
 - alibaba.ir
 - flytodayir.com
-- safarmarket.com
-- takhfifan.com
+- flightio
+  
+## use case
+if you live in iran :) and you need to find a ticket,(filght, train, bus ..) and you cant find it
+this script will help you.
+make sure you close every chrome window or tab first then try to run the main.py in app folder
+for linux:
+```
+python3 main.py
+```
+or in windows
+```
+python main.py
+```
+you can see chrome browser will pop up multiple time and will go thorgh couple of pages and do the stuff
+after that a tickets.json file would appear in project directory.
+if you open that you can see all the tickets that was availble in those websites.
+
+i need to mention that there are issues in the script and in would get better in future.
+
+regards <3
+
+

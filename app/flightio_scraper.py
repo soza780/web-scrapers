@@ -3,23 +3,23 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import time
+import datetime
 
-def flightio_scrape(what: str,s_from: str, to: str, year: int,
-                    month: int, day: int,day_of_month: int) -> list:
+def flightio_scrape(what: str,s_from: str, to: str,now) :
     options = Options()
     options.add_experimental_option("detach", True)
     driver = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()), options=options
     )
+    tickets = []
+    s_from = s_from.upper()
+    to = to.upper()
     for i in range(7):
-        url = f"https://flightio.com/{what}/search/2/{s_from}-{to}%40/{year}-{month}-{day_of_month}/1-0-0-1"
-        if day_of_month + i > 31:
-            url = url = f"https://flightio.com/{what}/search/2/{s_from}-{to}%40/{year}-{month + 1}-{1}/1-0-0-1"
+        url = f"https://flightio.com/{what}/search/2/{s_from}-{to}%40/{(now + datetime.timedelta(days=i)).__str__()}/1-0-0-1"
         try:
             driver.get(url)
             driver.maximize_window()
             time.sleep(10)
-            tickets = []
             tickets.append(
                 {
                     "site": url,
@@ -47,6 +47,7 @@ def flightio_scrape(what: str,s_from: str, to: str, year: int,
                     }
                 )
             
-            return tickets
         except:
             continue
+    driver.close()
+    return tickets
