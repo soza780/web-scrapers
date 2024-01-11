@@ -1,11 +1,13 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-import time
 import datetime
+import time
 
-def flightio_scrape(what: str,s_from: str, to: str,now) :
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+
+def flightio_scrape(what: str, s_from: str, to: str, now):
     options = Options()
     options.add_experimental_option("detach", True)
     driver = webdriver.Chrome(
@@ -35,7 +37,8 @@ def flightio_scrape(what: str,s_from: str, to: str,now) :
                 "xpath",
                 "//div[contains(@id,'DepartListSection')]//span[text()[contains(.,':')]]",
             )
-            price = driver.find_elements("xpath", "//div[contains(@id,'DepartListSection')]//div[contains(@class, 'transition-inout-300')]//button[contains(@class,'!text-primary')]")
+            price = driver.find_elements("xpath",
+                                         "//div[contains(@id,'DepartListSection')]//div[contains(@class, 'transition-inout-300')]//button[contains(@class,'!text-primary')]")
 
             for ticket in range(available.__len__()):
                 s_time = when[ticket + ticket].text
@@ -46,7 +49,7 @@ def flightio_scrape(what: str,s_from: str, to: str,now) :
                         "price": price[ticket].text
                     }
                 )
-            
+
         except:
             continue
     driver.close()

@@ -1,13 +1,13 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 import time
+
 import jdatetime
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 
-def alibaba_scrape(what: str,s_from: str, to: str,now):
-  
+def alibaba_scrape(what: str, s_from: str, to: str, now):
     options = Options()
     # options.add_experimental_option("detach", True)
     driver = webdriver.Chrome(
@@ -15,12 +15,14 @@ def alibaba_scrape(what: str,s_from: str, to: str,now):
     )
     s_from = s_from.upper()
     to = to.upper()
-    s_date = jdatetime.date.fromgregorian(year = now.year, month = now.month, day = now.day)
+    s_date = jdatetime.date.fromgregorian(year=now.year, month=now.month, day=now.day)
     tickets = []
     for i in range(7):
-        url = f"https://www.alibaba.ir/{what}s/{s_from}-{to}?adult=1&child=0&infant=0&departing={s_date.year}-{s_date.month}-{s_date.day + i}"
-        if now.day + i > 31:
-            url = f"https://www.alibaba.ir/{what}s/{s_from}-{to}?adult=1&child=0&infant=0&departing={s_date.year}-{s_date.month + 1}-{i}"
+        if what == "flight":
+            url = f"https://www.alibaba.ir/{what}s/{s_from}-{to}?adult=1&child=0&infant=0&departing={s_date.year}-{s_date.month}-{s_date.day + i}"
+        else:
+            url = f"https://www.alibaba.ir/{what}/{s_from}-{to}?adult=1&child=0&infant=0&departing={s_date.year}-{s_date.month}-{s_date.day + i}"
+
         try:
             driver.get(url)
             driver.maximize_window()
@@ -48,7 +50,7 @@ def alibaba_scrape(what: str,s_from: str, to: str,now):
                         "s_time": s_time,
                     }
                 )
-            
+
         except:
             continue
     driver.close()
