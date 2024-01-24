@@ -19,7 +19,7 @@ for scraping
 ## list of scrapers
 
 - alibaba.ir
-- flytodayir.com
+- flytoday.ir
 - flightio
   
 ## use case
